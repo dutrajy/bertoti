@@ -1,9 +1,11 @@
-import com.dutrajy.FinancasPessoais.*;
+package com.dutrajy.FinancasPessoais;
+
+import java.util.Date;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Date;
 
 public class GerenciadorFinanceiroPessoalTest {
 
@@ -83,13 +85,29 @@ public class GerenciadorFinanceiroPessoalTest {
 
     @Test
     public void testGetRelatorio() {
-        Categoria categoria = new Categoria("Alimentação");
-        Lancamento despesa1 = new Lancamento("Supermercado", categoria, 150, "despesa", new Date());
+        Lancamento despesa1 = new Lancamento("Supermercado", new Categoria("Alimentação"), 150, "despesa", new Date());
         Lancamento receita1 = new Lancamento("Salário", new Categoria("Recebimentos"), 2000, "receita", new Date());
         gerenciador.adicionarDespesa(despesa1);
         gerenciador.adicionarReceita(receita1);
-        String relatorio = gerenciador.getRelatorio(categoria, new Date(2023, 5, 1), new Date(2023, 5, 30));
+        String relatorio = gerenciador.getRelatorio(new Date(2023 - 1900, 5, 1), new Date(2023 - 1900, 5, 31));
         Assert.assertNotNull(relatorio);
+        Assert.assertNotEquals(relatorio, "");
+    }
+
+    @Test
+    public void testGetRelatorioCSV() {
+        Lancamento despesa1 = new Lancamento("Supermercado", new Categoria("Alimentação"), 150, "despesa", new Date(2023 - 1900, 5, 15));
+        Lancamento receita1 = new Lancamento("Salário", new Categoria("Recebimentos"), 2000, "receita", new Date(2023 - 1900, 5, 5));
+        gerenciador.adicionarDespesa(despesa1);
+        gerenciador.adicionarReceita(receita1);
+
+        String relatorio = gerenciador.getRelatorio(new Date(2023 - 1900, 5, 1), new Date(2023 - 1900, 5, 31));
+
+        String csvEsperado = "Nome,Categoria,Valor,Data\n" +
+                "Salário,Recebimentos,2000.00,2023-06-05\n" +
+                "Supermercado,Alimentação,-150.00,2023-06-15";
+
+        Assert.assertEquals(csvEsperado, relatorio);
     }
 
     @Test

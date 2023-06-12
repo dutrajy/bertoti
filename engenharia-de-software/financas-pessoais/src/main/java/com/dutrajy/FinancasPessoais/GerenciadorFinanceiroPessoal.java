@@ -1,9 +1,9 @@
 package com.dutrajy.FinancasPessoais;
 
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 public class GerenciadorFinanceiroPessoal {
     private List<Lancamento> receitas;
@@ -16,6 +16,10 @@ public class GerenciadorFinanceiroPessoal {
         categorias = new ArrayList<>();
     }
 
+    public List<Lancamento> getReceitas() {
+        return this.receitas;
+    }
+
     public void adicionarReceita(Lancamento receita) {
         receitas.add(receita);
     }
@@ -26,6 +30,10 @@ public class GerenciadorFinanceiroPessoal {
         }
     }
 
+    public List<Lancamento> getDespesas() {
+        return this.despesas;
+    }
+
     public void adicionarDespesa(Lancamento despesa) {
         despesas.add(despesa);
     }
@@ -34,6 +42,10 @@ public class GerenciadorFinanceiroPessoal {
         if (indice >= 0 && indice < despesas.size()) {
             despesas.remove(indice);
         }
+    }
+
+    public List<Categoria> getCategorias() {
+        return this.categorias;
     }
 
     public void adicionarCategoria(Categoria categoria) {
@@ -50,30 +62,33 @@ public class GerenciadorFinanceiroPessoal {
         ArrayList<Lancamento> despesasFiltradas = new ArrayList<>();
 
         for (Lancamento despesa: despesas) {
-            if (despesa.getCategoria().equals(categoria)) {
+            if (!despesa.getCategoria().equals(categoria)) {
                 despesasFiltradas.add(despesa);
             }
         }
+
+        this.despesas = despesasFiltradas;
     }
 
     public void removerReceitasDaCategoria(Categoria categoria) {
         ArrayList<Lancamento> receitasFiltradas = new ArrayList<>();
 
         for (Lancamento receita: receitas) {
-            if (receita.getCategoria().equals(categoria)) {
+            if (!receita.getCategoria().equals(categoria)) {
                 receitasFiltradas.add(receita);
             }
         }
+
+        this.receitas = receitasFiltradas;
     }
 
-    public String getRelatorio(Categoria categoria, Date inicio, Date fim) {
+    public String getRelatorio(Date inicio, Date fim) {
         List<Lancamento> todoOsLancamentos = new ArrayList<>();
 
         for (Lancamento despesa: despesas) {
             if (
                 despesa.getData().compareTo(inicio) >= 0
                 && despesa.getData().compareTo(fim) <= 0
-                && despesa.getCategoria().equals(categoria)
             ) {
                 todoOsLancamentos.add(despesa);
             }
@@ -83,14 +98,13 @@ public class GerenciadorFinanceiroPessoal {
             if (
                 receita.getData().compareTo(inicio) >= 0
                 && receita.getData().compareTo(fim) <= 0
-                && receita.getCategoria().equals(categoria)
             ) {
                 todoOsLancamentos.add(receita);
             }
         }
 
         todoOsLancamentos.sort((l1, l2) -> {
-            return l1.getData().compareTo(l2);
+            return l1.getData().compareTo(l2.getData());
         });
 
         StringBuilder csv = new StringBuilder("Nome,Categoria,Valor,Data");
@@ -100,7 +114,7 @@ public class GerenciadorFinanceiroPessoal {
             String nomeDaCategoria = lancamento.getCategoria().getNome();
             float valorComSinal = lancamento.getTipo().equals("despesa") ? - lancamento.getValor() : lancamento.getValor();
             String valorDoLancamento = String.format("%.2f", valorComSinal);
-            String dataDoLancamento = (new SimpleDateFormat("yyyy-mm-dd")).format(lancamento.getData());
+            String dataDoLancamento = (new SimpleDateFormat("yyyy-MM-dd")).format(lancamento.getData());
 
             csv.append(
                 "\n" + nomeDoLancamento

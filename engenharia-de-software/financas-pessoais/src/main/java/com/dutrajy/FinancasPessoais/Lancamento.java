@@ -9,6 +9,15 @@ public class Lancamento {
     private float valor;
     private Date data;
 
+    public Lancamento() {}
+
+    public Lancamento(String nome, Categoria categoria, float valor, String tipo, Date data) {
+        this.nome = nome;
+        this.categoria = categoria;
+        this.valor = valor;
+        this.tipo = tipo;
+        this.data = data;
+    }
 
     public String getNome() {
         return nome;

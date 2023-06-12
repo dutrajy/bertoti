@@ -20,7 +20,5 @@ public class App
         gerenciador.adicionarCategoria(educacao);
         gerenciador.adicionarCategoria(salario);
         gerenciador.adicionarCategoria(freelances);
-
-
     }
 }
