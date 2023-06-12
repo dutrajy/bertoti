@@ -15,7 +15,7 @@
 + removerCategoria(int indice): void
 + removerDespesasDaCategoria(Categoria categoria): void
 + removerReceitasDaCategoria(Categoria categoria): void
-+ getRelatorio(Categoria categoria, Date inicio, Date fim): String
++ getRelatorio(Date inicio, Date fim): String
 + getSaldoEm(Date data): float
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>890</x><y>310</y><w>130</w><h>120</h></coordinates><panel_attributes>Categoria
 --
