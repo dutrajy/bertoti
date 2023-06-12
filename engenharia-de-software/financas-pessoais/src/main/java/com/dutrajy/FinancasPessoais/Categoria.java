@@ -1,0 +1,23 @@
+package com.dutrajy.FinancasPessoais;
+
+public class Categoria {
+    private String nome;
+
+    public Categoria() {}
+
+    public Categoria(String nome) {
+        this.nome = nome;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public boolean equals(Categoria categoria) {
+        return getNome().equals(categoria.getNome());
+    }
+}
