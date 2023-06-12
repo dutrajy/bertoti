@@ -38,6 +38,7 @@ funcionalidades específicas, mas são importantes para garantir a eficiência, 
 adequados do software. Alguns exemplos de requisitos não funcionais são:
 
 * O sistema deve ter uma resposta de tempo de carregamento de página inferior a 2 segundos.
+
 * O software deve ser compatível com diferentes sistemas operacionais, como Windows, Mac e Linux.
 
 

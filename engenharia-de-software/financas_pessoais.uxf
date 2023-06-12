@@ -1,4 +1,4 @@
-<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>40</x><y>210</y><w>390</w><h>280</h></coordinates><panel_attributes>GerenciadorFinanceiroPessoal
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>110</x><y>210</y><w>390</w><h>290</h></coordinates><panel_attributes>GerenciadorFinanceiroPessoal
 --
 
 - receitas: List&lt;Lancamento&gt;
@@ -15,16 +15,16 @@
 + removerCategoria(int indice): void
 + removerDespesasDaCategoria(Categoria categoria): void
 + removerReceitasDaCategoria(Categoria categoria): void
-+ getRelatorio(Categoria categoria, Date inicio, Date fim): Relatorio
++ getRelatorio(Categoria categoria, Date inicio, Date fim): String
 + getSaldoEm(Date data): float
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>820</x><y>310</y><w>100</w><h>70</h></coordinates><panel_attributes>Categoria
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>890</x><y>310</y><w>130</w><h>120</h></coordinates><panel_attributes>Categoria
 --
 
 - nome: String
 
 --
 
-+ getNome(): String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>290</y><w>150</w><h>210</h></coordinates><panel_attributes>Lancamento
++ getNome(): String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>630</x><y>290</y><w>150</w><h>210</h></coordinates><panel_attributes>Lancamento
 --
 
 - nome: String
@@ -37,4 +37,4 @@
 + getNome(): String
 + getCategoria(): String
 + getValor(): floar
-+ getData(): Date</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>420</x><y>350</y><w>160</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;10;140;10</additional_attributes></element><element><id>Relation</id><coordinates><x>420</x><y>250</y><w>470</w><h>80</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;10;450;10;450;60</additional_attributes></element></diagram>
++ getData(): Date</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>490</x><y>350</y><w>160</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;10;140;10</additional_attributes></element><element><id>Relation</id><coordinates><x>490</x><y>250</y><w>470</w><h>80</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;10;450;10;450;60</additional_attributes></element></diagram>

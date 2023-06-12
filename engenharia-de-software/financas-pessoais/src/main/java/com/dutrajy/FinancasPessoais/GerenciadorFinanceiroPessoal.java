@@ -109,6 +109,8 @@ public class GerenciadorFinanceiroPessoal {
                 + "," + dataDoLancamento
             );
         }
+
+        return csv.toString();
     }
 
     public float getSaldoEm(Date data) {
