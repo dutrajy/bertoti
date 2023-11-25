@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="p-3 text-bg-dark">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                    <span class="fs-4 text-white">FinControl</span>
+                  </a>
+                <ul class="nav nav-pills">
+                    <li><a href="/entries/list.html" class="nav-link px-2 text-white">Lançamentos</a></li>
+                    <li><a href="#" class="nav-link px-2 text-white">Sair</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main class="container py-4">
+        <h1 class="text-center mb-5">Lançamentos</h1>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Descrição</th>
+              <th>Valor</th>
+              <th>Data de Criação</th>
+              <th>Data de Atualização</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="entries-list"></tbody>
+        </table>
+
+        <div class="mt-5">
+            <a href="/entries/form.html?action=create"><button class="btn btn-success">Criar Novo Lançamento</button></a>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const reaisFormatter = Intl.NumberFormat("pt-BR", {style: "currency", currency: "BRL"});
+        const dateTimeFormatter = new Intl.DateTimeFormat('pt-BR', {
+            dateStyle: 'short',
+            timeStyle: 'short',
+            timeZone: 'America/Sao_Paulo',
+            time12: false,
+        });
+
+        const listEntries = async () => {
+            const entriesList = document.getElementById("entries-list");
+            entriesList.innerHTML = ``;
+
+            const response = await fetch("/api/entries");
+
+            if (response.status != 200) {
+                const p = document.createElement("p");
+                p.textContent = "Erro ao carregar lançamentos."
+                entriesList.append(p);
+                return;
+            }
+
+            const entries = await response.json();
+
+            if (entries.length === 0) {
+                const p = document.createElement("p");
+                p.textContent = "Nenhum lançamento cadastrado."
+                entriesList.append(p);
+                return;
+            }
+            
+            entries.forEach(function (entry) {
+                const entryRow = document.createElement("tr");
+                entryRow.innerHTML = `<tr>
+                    <td>${entry.id}</td>
+                    <td>${entry.description}</td>
+                    <td class="text-right">${reaisFormatter.format(entry.amount)}</td>
+                    <td>${dateTimeFormatter.format(new Date(entry.createdAt))}</td>
+                    <td>${entry.updatedAt ? dateTimeFormatter.format(new Date(entry.updatedAt)) : "-"}</td>
+                    <td>
+                        <a href="/entries/show.html?id=${entry.id}"><button class="btn btn-primary">Visualizar</button></a>
+                        <a href="/entries/form.html?action=update&id=${entry.id}"><button class="btn btn-warning">Editar</button></a>
+                        <button class="btn btn-danger" onclick="deleteEntry(${entry.id})">Excluir</button>
+                    </td>
+                </tr>`;
+                entriesList.append(entryRow);
+          });
+        }
+        
+        const deleteEntry = async (entryId) => {
+            const confirmDelete = confirm("Deseja realmente excluir este lançamento?");
+            
+            if (confirmDelete) {
+                const response = await fetch(`/api/entries/${entryId}`, { method: "DELETE" });
+                
+                if (response.status === 204) {
+                    alert("Lançamento removido com sucesso.");
+                } else {
+                    alert("Houve um erro ao remover o lançamento.")
+                }
+                
+                listEntries();
+            }
+        }
+        
+        document.addEventListener("DOMContentLoaded", listEntries);
+    </script>
+  </body>
+</html>
