@@ -1,0 +1,5 @@
+@startuml
+class ShippingCalculator {
+    + calculate(double, string): double
+}
+@enduml

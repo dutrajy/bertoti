@@ -1,0 +1,29 @@
+@startuml
+class Order {
+    - shippingStrategy: ShippingStrategy
+    + setShippingStrategy(ShippingStrategy): void
+    + calculateTotalShipping(double): double
+}
+
+interface ShippingStrategy {
+    + calculateCost(double): double
+}
+
+class NormalShipping {
+    + calculateCost(double): double
+}
+
+class ExpressShipping {
+    + calculateCost(double): double
+}
+
+class FreeShipping {
+    + calculateCost(double): double
+}
+
+Order *.right.> ShippingStrategy
+ShippingStrategy <|-- NormalShipping
+ShippingStrategy <|-- ExpressShipping
+ShippingStrategy <|-- FreeShipping
+
+@enduml
