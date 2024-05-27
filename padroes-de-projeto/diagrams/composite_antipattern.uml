@@ -1,0 +1,18 @@
+@startuml
+
+class TaskAntiPattern {
+    - description: String
+    - done: boolean
+    - hasSubTasks: boolean
+    - subTasks: List<TaskAntiPattern>
+
+    + TaskAntiPattern(description: String, hasSubTasks: boolean)
+    + getDescription(): String
+    + hasSubTasks(): boolean
+    + isDone(): boolean
+    + getSubtasks(): List<TaskAntiPattern>
+    + addSubTask(task: TaskAntiPattern): void
+    + execute(): void
+}
+
+@enduml

@@ -17,3 +17,14 @@ Anti pattern:
 Pattern:
 
 ![shipping calculator strategy pattern](diagrams/strategy_pattern.png "Strategy Pattern")
+
+
+## Composite
+
+Anti pattern:
+
+![composite anti pattern](diagrams/composite_antipattern.png "Composite Anti Pattern")
+
+Pattern:
+
+![composite pattern](diagrams/composite_pattern.png "Composite Pattern")

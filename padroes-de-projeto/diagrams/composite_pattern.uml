@@ -1,0 +1,26 @@
+@startuml
+
+interface Task {
+    {abstract} + execute()
+}
+
+class SimpleTask {
+    - description: String
+    + SimpleTask(description: String)
+    + execute()
+}
+
+class CompositeTask {
+    - description: String
+    - subtasks: List<Task>
+    + CompositeTask(description: String)
+    + addSubtask(subtask: Task): void
+    + removeSubtask(subtask: Task): void
+    + execute()
+}
+
+Task <|-- SimpleTask
+Task <|-- CompositeTask
+Task <--o CompositeTask
+
+@enduml
