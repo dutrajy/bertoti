@@ -1,0 +1,22 @@
+@startuml
+class CatalogAntiPattern {
+    +addProduct(product: ProductAntiPattern)
+}
+
+class EmailSystemAntiPattern {
+    +sendEmail(product: ProductAntiPattern)
+}
+
+class PushNotificationSystemAntiPattern {
+    +sendPushNotification(product: ProductAntiPattern)
+}
+
+class LogSystemAntiPattern {
+    +log(product: ProductAntiPattern)
+}
+
+App -right-> CatalogAntiPattern
+CatalogAntiPattern -down-> EmailSystemAntiPattern
+CatalogAntiPattern -down-> PushNotificationSystemAntiPattern
+CatalogAntiPattern -down-> LogSystemAntiPattern
+@enduml

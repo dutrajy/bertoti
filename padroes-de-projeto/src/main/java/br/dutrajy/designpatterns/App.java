@@ -8,6 +8,14 @@ import br.dutrajy.designpatterns.facade.antipattern.InventoryService;
 import br.dutrajy.designpatterns.facade.antipattern.PaymentService;
 import br.dutrajy.designpatterns.facade.antipattern.ShippingService;
 import br.dutrajy.designpatterns.facade.pattern.Ecommerce;
+import br.dutrajy.designpatterns.observer.antipattern.CatalogAntiPattern;
+import br.dutrajy.designpatterns.observer.antipattern.ProductAntiPattern;
+import br.dutrajy.designpatterns.observer.pattern.Catalog;
+import br.dutrajy.designpatterns.observer.pattern.CatalogObserver;
+import br.dutrajy.designpatterns.observer.pattern.EmailSystem;
+import br.dutrajy.designpatterns.observer.pattern.LogSystem;
+import br.dutrajy.designpatterns.observer.pattern.Product;
+import br.dutrajy.designpatterns.observer.pattern.PushNotificationSystem;
 import br.dutrajy.designpatterns.singleton.antipattern.UserAntiPattern;
 import br.dutrajy.designpatterns.singleton.pattern.User;
 import br.dutrajy.designpatterns.strategy.antipattern.ShippingCostCalculator;
@@ -135,11 +143,35 @@ public class App {
         System.out.println("+------------------------------------------------------------------------------+\n");
     }
 
+    public static void observer() {
+        // Observer Pattern
+        System.out.println("+------------------------------------------------------------------------------+");
+        System.out.println("| Observer Pattern                                                             |");
+        System.out.println("+------------------------------------------------------------------------------+");
+
+        System.out.println("Anti pattern:");
+        CatalogAntiPattern catalogAntiPattern = new CatalogAntiPattern();
+        catalogAntiPattern.addProduct(new ProductAntiPattern("Laptop"));
+
+        System.out.println("\nPattern:");
+        Catalog catalog = new Catalog();
+        EmailSystem emailSystem = new EmailSystem();
+        PushNotificationSystem pushNotificationSystem = new PushNotificationSystem();
+        LogSystem logSystem = new LogSystem();
+        catalog.addObserver(emailSystem);
+        catalog.addObserver(pushNotificationSystem);
+        catalog.addObserver(logSystem);
+        catalog.addProduct(new Product("Laptop"));
+
+        System.out.println("+------------------------------------------------------------------------------+\n");
+    }
+
     public static void main( String[] args ) {
         System.out.println("");
         strategy();
         composite();
         facade();
         singleton();
+        observer();
     }
 }

@@ -1,0 +1,28 @@
+@startuml
+interface CatalogObserver {
+    +update(Product product)
+}
+
+class Catalog {
+    -observers: List<CatalogObserver>
+    +addObserver(observer: CatalogObserver)
+    +removeObserver(observer: CatalogObserver)
+    +notifyObservers(product: Product)
+    +addProduct(product: Product)
+}
+
+class EmailSystem implements CatalogObserver {
+    +update(product: Product)
+}
+
+class PushNotificationSystem implements CatalogObserver {
+    +update(product: Product)
+}
+
+class LogSystem implements CatalogObserver {
+    +update(product: Product)
+}
+
+App -right-> Catalog
+Catalog o-right- CatalogObserver
+@enduml

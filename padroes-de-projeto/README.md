@@ -50,3 +50,14 @@ Anti pattern:
 Pattern:
 
 ![singleton pattern](diagrams/singleton_pattern.png "Singleton Pattern")
+
+
+## Observer
+
+Anti pattern:
+
+![observer anti pattern](diagrams/observer_antipattern.png "Singleton Anti Pattern")
+
+Pattern:
+
+![observer pattern](diagrams/observer_pattern.png "Singleton Pattern")
