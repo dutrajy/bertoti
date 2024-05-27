@@ -28,3 +28,14 @@ Anti pattern:
 Pattern:
 
 ![composite pattern](diagrams/composite_pattern.png "Composite Pattern")
+
+
+## Facade
+
+Anti pattern:
+
+![facade anti pattern](diagrams/facade_antipattern.png "Facade Anti Pattern")
+
+Pattern:
+
+![facade pattern](diagrams/facade_pattern.png "Facade Pattern")

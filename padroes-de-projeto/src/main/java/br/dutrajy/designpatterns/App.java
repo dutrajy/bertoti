@@ -4,6 +4,10 @@ import br.dutrajy.designpatterns.composite.antipattern.TaskAntiPattern;
 import br.dutrajy.designpatterns.composite.pattern.CompositeTask;
 import br.dutrajy.designpatterns.composite.pattern.SimpleTask;
 import br.dutrajy.designpatterns.composite.pattern.Task;
+import br.dutrajy.designpatterns.facade.antipattern.InventoryService;
+import br.dutrajy.designpatterns.facade.antipattern.PaymentService;
+import br.dutrajy.designpatterns.facade.antipattern.ShippingService;
+import br.dutrajy.designpatterns.facade.pattern.Ecommerce;
 import br.dutrajy.designpatterns.strategy.antipattern.ShippingCostCalculator;
 import br.dutrajy.designpatterns.strategy.pattern.ExpressShipping;
 import br.dutrajy.designpatterns.strategy.pattern.NextDayShipping;
@@ -37,7 +41,7 @@ public class App {
 
         order.setShippingStrategy(new NextDayShipping());
         System.out.println("Custo de frete para o dia seguinte: " + order.calculateTotalShipping(packageWeight));
-        System.out.println("\n+------------------------------------------------------------------------------+\n\n");
+        System.out.println("+------------------------------------------------------------------------------+\n\n");
     }
 
     public static void composite() {
@@ -79,11 +83,38 @@ public class App {
         for (Task task : subTask.getSubTasks()) {
             System.out.println(task.getDescription() + ": " + task.isDone());
         }
-        System.out.println("\n+------------------------------------------------------------------------------+\n\n");
+        System.out.println("+------------------------------------------------------------------------------+\n\n");
+    }
+
+    public static void facade() {
+        // Facade Pattern
+        System.out.println("\n\n+------------------------------------------------------------------------------+");
+        System.out.println("| Facade Pattern                                                               |");
+        System.out.println("+------------------------------------------------------------------------------+");
+
+        String item = "Laptop";
+        String account = "user123";
+        double amount = 1200.00;
+        String address = "123 Main St";
+
+        System.out.println("Anti pattern:");
+        InventoryService inventoryService = new InventoryService();
+        PaymentService paymentService = new PaymentService();
+        ShippingService shippingService = new ShippingService();
+        inventoryService.checkInventory(item);
+        paymentService.processPayment(account, amount);
+        shippingService.shipItem(item, address);
+
+        System.out.println("\nPattern:");
+        Ecommerce ecommerce = new Ecommerce();
+        ecommerce.placeOrder(item, account, amount, address);
+
+        System.out.println("+------------------------------------------------------------------------------+\n\n");
     }
 
     public static void main( String[] args ) {
         strategy();
         composite();
+        facade();
     }
 }

@@ -1,0 +1,13 @@
+@startuml
+class InventoryService {
+    +void checkInventory(String item)
+}
+
+class PaymentService {
+    +void processPayment(String account, double amount)
+}
+
+class ShippingService {
+    +void shipItem(String item, String address)
+}
+@enduml

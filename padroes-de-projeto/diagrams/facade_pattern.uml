@@ -1,0 +1,26 @@
+@startuml
+class InventoryService {
+    +void checkInventory(String item)
+}
+
+class PaymentService {
+    +void processPayment(String account, double amount)
+}
+
+class ShippingService {
+    +void shipItem(String item, String address)
+}
+
+class Ecommerce {
+    -InventoryService inventoryService
+    -PaymentService paymentService
+    -ShippingService shippingService
+    +Ecommerce()
+    +void placeOrder(String item, String account, double amount, String address)
+}
+
+App -> Ecommerce
+Ecommerce -down-> InventoryService
+Ecommerce -down-> PaymentService
+Ecommerce -down-> ShippingService
+@enduml
