@@ -1,0 +1,15 @@
+@startuml
+class Printer {
+    - static Printer instance
+    - Printer()
+    + static Printer getInstance()
+    + void print(String document)
+}
+
+class User {
+    + void printDocument(String document)
+}
+
+User -down-> Printer
+Printer -up-> Printer
+@enduml

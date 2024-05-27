@@ -8,6 +8,8 @@ import br.dutrajy.designpatterns.facade.antipattern.InventoryService;
 import br.dutrajy.designpatterns.facade.antipattern.PaymentService;
 import br.dutrajy.designpatterns.facade.antipattern.ShippingService;
 import br.dutrajy.designpatterns.facade.pattern.Ecommerce;
+import br.dutrajy.designpatterns.singleton.antipattern.UserAntiPattern;
+import br.dutrajy.designpatterns.singleton.pattern.User;
 import br.dutrajy.designpatterns.strategy.antipattern.ShippingCostCalculator;
 import br.dutrajy.designpatterns.strategy.pattern.ExpressShipping;
 import br.dutrajy.designpatterns.strategy.pattern.NextDayShipping;
@@ -17,14 +19,14 @@ import br.dutrajy.designpatterns.strategy.pattern.StandardShipping;
 public class App {
     private static void strategy() {
         // Strategy Pattern
-        System.out.println("\n\n+------------------------------------------------------------------------------+");
+        System.out.println("+------------------------------------------------------------------------------+");
         System.out.println("| Strategy Pattern                                                             |");
         System.out.println("+------------------------------------------------------------------------------+");
 
         double packageWeight = 5.0;
         System.out.println("Peso do pacote: " + packageWeight + " kg\n");
 
-        System.out.println("\nAnti Pattern:");
+        System.out.println("Anti Pattern:");
         ShippingCostCalculator calculator = new ShippingCostCalculator();
 
         System.out.println("Custo de frete normal: " + calculator.calculate(packageWeight, "standard"));
@@ -41,13 +43,13 @@ public class App {
 
         order.setShippingStrategy(new NextDayShipping());
         System.out.println("Custo de frete para o dia seguinte: " + order.calculateTotalShipping(packageWeight));
-        System.out.println("+------------------------------------------------------------------------------+\n\n");
+        System.out.println("+------------------------------------------------------------------------------+\n");
     }
 
     public static void composite() {
         // Composite Pattern
-        System.out.println("\n\n+------------------------------------------------------------------------------+");
-        System.out.println("| Composite Pattern                                                             |");
+        System.out.println("+------------------------------------------------------------------------------+");
+        System.out.println("| Composite Pattern                                                            |");
         System.out.println("+------------------------------------------------------------------------------+");
 
         System.out.println("Anti pattern:");
@@ -83,12 +85,12 @@ public class App {
         for (Task task : subTask.getSubTasks()) {
             System.out.println(task.getDescription() + ": " + task.isDone());
         }
-        System.out.println("+------------------------------------------------------------------------------+\n\n");
+        System.out.println("+------------------------------------------------------------------------------+\n");
     }
 
     public static void facade() {
         // Facade Pattern
-        System.out.println("\n\n+------------------------------------------------------------------------------+");
+        System.out.println("+------------------------------------------------------------------------------+");
         System.out.println("| Facade Pattern                                                               |");
         System.out.println("+------------------------------------------------------------------------------+");
 
@@ -109,12 +111,35 @@ public class App {
         Ecommerce ecommerce = new Ecommerce();
         ecommerce.placeOrder(item, account, amount, address);
 
-        System.out.println("+------------------------------------------------------------------------------+\n\n");
+        System.out.println("+------------------------------------------------------------------------------+\n");
+    }
+
+    private static void singleton() {
+        // Singleton Pattern
+        System.out.println("+------------------------------------------------------------------------------+");
+        System.out.println("| Singleton Pattern                                                            |");
+        System.out.println("+------------------------------------------------------------------------------+");
+
+        System.out.println("Anti pattern:");
+        UserAntiPattern userAntiPattern1 = new UserAntiPattern();
+        UserAntiPattern userAntiPattern2 = new UserAntiPattern();
+        userAntiPattern1.printDocument("Document1");
+        userAntiPattern2.printDocument("Document2");
+
+        System.out.println("\nPattern:");
+        User user1 = new User();
+        User user2 = new User();
+        user1.printDocument("Document1");
+        user2.printDocument("Document2");
+
+        System.out.println("+------------------------------------------------------------------------------+\n");
     }
 
     public static void main( String[] args ) {
+        System.out.println("");
         strategy();
         composite();
         facade();
+        singleton();
     }
 }

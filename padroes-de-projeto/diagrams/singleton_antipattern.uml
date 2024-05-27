@@ -1,0 +1,14 @@
+@startuml
+class PrinterAntiPattern {
+    - static PrinterAntiPattern instance
+    - PrinterAntiPattern()
+    + static PrinterAntiPattern getInstance()
+    + void print(String document)
+}
+
+class UserAntiPattern {
+    + void printDocument(String document)
+}
+
+UserAntiPattern -down-> PrinterAntiPattern
+@enduml
