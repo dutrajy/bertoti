@@ -1,4 +1,5 @@
 @startuml
+!theme plain
 class ShippingCalculator {
     + calculate(double, string): double
 }

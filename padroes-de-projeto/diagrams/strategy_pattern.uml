@@ -1,4 +1,5 @@
 @startuml
+!theme plain
 class Order {
     - shippingStrategy: ShippingStrategy
     + setShippingStrategy(ShippingStrategy): void

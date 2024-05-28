@@ -1,4 +1,5 @@
 @startuml
+!theme plain
 
 interface Task {
     {abstract} + execute()
