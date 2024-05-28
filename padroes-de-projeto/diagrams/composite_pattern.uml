@@ -20,8 +20,8 @@ class CompositeTask {
     + execute()
 }
 
-Task <|-- SimpleTask
-Task <|-- CompositeTask
+Task <|.. SimpleTask
+Task <|.. CompositeTask
 Task <--o CompositeTask
 
 @enduml

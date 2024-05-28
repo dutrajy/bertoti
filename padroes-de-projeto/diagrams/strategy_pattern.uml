@@ -23,8 +23,8 @@ class FreeShipping {
 }
 
 Order *.right.> ShippingStrategy
-ShippingStrategy <|-- NormalShipping
-ShippingStrategy <|-- ExpressShipping
-ShippingStrategy <|-- FreeShipping
+ShippingStrategy <|.. NormalShipping
+ShippingStrategy <|.. ExpressShipping
+ShippingStrategy <|.. FreeShipping
 
 @enduml
