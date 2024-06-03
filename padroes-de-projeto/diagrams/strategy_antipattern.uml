@@ -1,6 +1,19 @@
 @startuml
 !theme plain
-class ShippingCalculator {
-    + calculate(double, string): double
+class AntiPatternStandardOrder {
+    - weight: double
+    + setWeight(double): void
+    + calculateTotalShipping(): double
 }
+
+class AntiPatternExpressOrder {
+    + calculateTotalShipping(): double
+}
+
+class AntiPatternNextDayOrder {
+    + calculateTotalShipping(): double
+}
+
+AntiPatternStandardOrder <|.. AntiPatternExpressOrder
+AntiPatternStandardOrder <|.. AntiPatternNextDayOrder
 @enduml

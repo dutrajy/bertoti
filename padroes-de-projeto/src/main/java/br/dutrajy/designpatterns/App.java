@@ -1,6 +1,8 @@
 package br.dutrajy.designpatterns;
 
-import br.dutrajy.designpatterns.composite.antipattern.TaskAntiPattern;
+import br.dutrajy.designpatterns.composite.antipattern.AntiPatterMultiTask;
+import br.dutrajy.designpatterns.composite.antipattern.AntiPatternTask;
+import br.dutrajy.designpatterns.composite.antipattern.AntiPatternTaskList;
 import br.dutrajy.designpatterns.composite.pattern.CompositeTask;
 import br.dutrajy.designpatterns.composite.pattern.SimpleTask;
 import br.dutrajy.designpatterns.composite.pattern.Task;
@@ -11,14 +13,14 @@ import br.dutrajy.designpatterns.facade.pattern.Ecommerce;
 import br.dutrajy.designpatterns.observer.antipattern.CatalogAntiPattern;
 import br.dutrajy.designpatterns.observer.antipattern.ProductAntiPattern;
 import br.dutrajy.designpatterns.observer.pattern.Catalog;
-import br.dutrajy.designpatterns.observer.pattern.CatalogObserver;
 import br.dutrajy.designpatterns.observer.pattern.EmailSystem;
 import br.dutrajy.designpatterns.observer.pattern.LogSystem;
 import br.dutrajy.designpatterns.observer.pattern.Product;
 import br.dutrajy.designpatterns.observer.pattern.PushNotificationSystem;
-import br.dutrajy.designpatterns.singleton.antipattern.UserAntiPattern;
 import br.dutrajy.designpatterns.singleton.pattern.User;
-import br.dutrajy.designpatterns.strategy.antipattern.ShippingCostCalculator;
+import br.dutrajy.designpatterns.strategy.antipattern.AntiPatternExpressOrder;
+import br.dutrajy.designpatterns.strategy.antipattern.AntiPatternNextDayOrder;
+import br.dutrajy.designpatterns.strategy.antipattern.AntiPatternStandardOrder;
 import br.dutrajy.designpatterns.strategy.pattern.ExpressShipping;
 import br.dutrajy.designpatterns.strategy.pattern.NextDayShipping;
 import br.dutrajy.designpatterns.strategy.pattern.Order;
@@ -35,11 +37,17 @@ public class App {
         System.out.println("Peso do pacote: " + packageWeight + " kg\n");
 
         System.out.println("Anti Pattern:");
-        ShippingCostCalculator calculator = new ShippingCostCalculator();
 
-        System.out.println("Custo de frete normal: " + calculator.calculate(packageWeight, "standard"));
-        System.out.println("Custo de frete expresso: " + calculator.calculate(packageWeight, "express"));
-        System.out.println("Custo de frete para o dia seguinte: " + calculator.calculate(packageWeight, "nextday"));
+        AntiPatternStandardOrder antiPatternStandardOrder = new AntiPatternStandardOrder();
+        antiPatternStandardOrder.setShippingWeight(packageWeight);
+        AntiPatternStandardOrder antiPatternExpressOrder = new AntiPatternExpressOrder();
+        antiPatternExpressOrder.setShippingWeight(packageWeight);
+        AntiPatternNextDayOrder antiPatternNextDayOrder = new AntiPatternNextDayOrder();
+        antiPatternNextDayOrder.setShippingWeight(packageWeight);
+
+        System.out.println("Custo de frete normal: " + antiPatternStandardOrder.calculateTotalShipping());
+        System.out.println("Custo de frete expresso: " + antiPatternExpressOrder.calculateTotalShipping());
+        System.out.println("Custo de frete para o dia seguinte: " + antiPatternNextDayOrder.calculateTotalShipping());
 
         System.out.println("\nPattern:");
         Order order = new Order(new StandardShipping());
@@ -61,19 +69,23 @@ public class App {
         System.out.println("+------------------------------------------------------------------------------+");
 
         System.out.println("Anti pattern:");
-        TaskAntiPattern mainTask = new TaskAntiPattern("Main Task", true);
-        TaskAntiPattern subTask1 = new TaskAntiPattern("Subtask 1", false);
-        TaskAntiPattern subTask2 = new TaskAntiPattern("Subtask 2", false);
+        AntiPatternTask task1 = new AntiPatternTask("Tarefa 1");
+        AntiPatternTask task2 = new AntiPatternTask("Tarefa 2");
+        AntiPatternTask task3 = new AntiPatternTask("Tarefa 3");
+        AntiPatternTask task4 = new AntiPatternTask("Tarefa 4");
 
-        mainTask.addSubTask(subTask1);
-        mainTask.addSubTask(subTask2);
+        AntiPatterMultiTask multiTask1 = new AntiPatterMultiTask("Multitarefa 1");
+        multiTask1.addTask(task3);
+        multiTask1.addTask(task4);
 
-        mainTask.execute();
+        AntiPatternTaskList taskList = new AntiPatternTaskList();
+        taskList.addTask(task1);
+        taskList.addTask(task2);
+        taskList.addMultiTask(multiTask1);
 
-        System.out.println("Main Task is done? " + mainTask.isDone());
-        for (TaskAntiPattern subTask : mainTask.getSubtasks()) {
-            System.out.println("Subtask " + subTask.getDescription() + " is done? " + subTask.isDone());
-        }
+        taskList.execute();
+
+        System.out.println(taskList.getDescription());
 
         System.out.println("\nPattern:");
         CompositeTask compositeMainTask = new CompositeTask("Main Task");
@@ -127,12 +139,6 @@ public class App {
         System.out.println("+------------------------------------------------------------------------------+");
         System.out.println("| Singleton Pattern                                                            |");
         System.out.println("+------------------------------------------------------------------------------+");
-
-        System.out.println("Anti pattern:");
-        UserAntiPattern userAntiPattern1 = new UserAntiPattern();
-        UserAntiPattern userAntiPattern2 = new UserAntiPattern();
-        userAntiPattern1.printDocument("Document1");
-        userAntiPattern2.printDocument("Document2");
 
         System.out.println("\nPattern:");
         User user1 = new User();

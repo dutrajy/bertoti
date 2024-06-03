@@ -43,10 +43,6 @@ Pattern:
 
 ## Singleton
 
-Anti pattern:
-
-![singleton anti pattern](diagrams/singleton_antipattern.png "Singleton Anti Pattern")
-
 Pattern:
 
 ![singleton pattern](diagrams/singleton_pattern.png "Singleton Pattern")

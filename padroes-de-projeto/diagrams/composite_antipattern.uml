@@ -1,19 +1,40 @@
 @startuml
 !theme plain
 
-class TaskAntiPattern {
-    - description: String
-    - done: boolean
-    - hasSubTasks: boolean
-    - subTasks: List<TaskAntiPattern>
-
-    + TaskAntiPattern(description: String, hasSubTasks: boolean)
-    + getDescription(): String
-    + hasSubTasks(): boolean
-    + isDone(): boolean
-    + getSubtasks(): List<TaskAntiPattern>
-    + addSubTask(task: TaskAntiPattern): void
-    + execute(): void
+class AntiPatternTaskList {
+    - List<AntiPatternTask> tasks
+    - List<AntiPatternMultiTask> multiTasks
+    + AntiPatternTaskList()
+    + void addTask(AntiPatternTask task)
+    + void addMultiTask(AntiPatternMultiTask multiTask)
+    + List<AntiPatternTask> getTasks()
+    + List<AntiPatternMultiTask> getMultiTasks()
+    + boolean isDone()
+    + void execute()
+    + String getDescription()
 }
 
+class AntiPatternTask {
+    - String description
+    - boolean done
+    + AntiPatternTask(String description)
+    + String getDescription()
+    + boolean isDone()
+    + void execute()
+}
+
+class AntiPatternMultiTask {
+    - String description
+    - List<AntiPatternTask> tasks
+    + AntiPatternMultiTask(String description)
+    + void addTask(AntiPatternTask task)
+    + List<AntiPatternTask> getTasks()
+    + String getDescription()
+    + boolean isDone()
+    + void execute()
+}
+
+AntiPatternTaskList *-- AntiPatternTask
+AntiPatternTaskList *-- AntiPatternMultiTask
+AntiPatternMultiTask *-- AntiPatternTask
 @enduml
